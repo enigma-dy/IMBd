@@ -2,8 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
-import LoadingSkeleton from "./LoadingSkeleton";
 
 const UpNext = () => {
   const [data, setData] = useState([]);
@@ -39,7 +39,7 @@ const UpNext = () => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, []); // Since fetchData is defined inside the component, it's safe to leave it out of the dependency array.
 
   if (loading) return null;
   if (error)
@@ -58,9 +58,11 @@ const UpNext = () => {
             className="relative bg-gray-900 rounded-lg overflow-hidden shadow-lg transform hover:scale-105 hover:shadow-xl transition-transform duration-300 cursor-pointer"
             onClick={() => router.push(`movie/${movie.id}`)}
           >
-            <img
+            <Image
               src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
               alt={movie.title}
+              width={500}
+              height={280}
               className="w-full sm:w-40 h-56 sm:h-48 object-cover"
             />
 
