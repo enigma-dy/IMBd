@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import LoadingSkeleton from "./LoadingSkeleton";
 
 const TopNews = () => {
   const [data, setData] = useState(null);

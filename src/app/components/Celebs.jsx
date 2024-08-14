@@ -8,10 +8,12 @@ const Celebs = () => {
     <div>
       <h1 className="text-black text-4xl font-bold m-3">Movies</h1>
       <ul className="flex flex-col gap-2">
-        {categories.map((category) => (
-          <Link href={category} className="text-blue-600 italic">
-            {category}
-          </Link>
+        {categories.map((category, id) => (
+          <li key={id}>
+            <Link href={category} className="text-blue-600 italic">
+              {category}
+            </Link>
+          </li>
         ))}
       </ul>
     </div>

@@ -16,9 +16,11 @@ const Watch = () => {
       <h1>Movies</h1>
       <ul className="flex flex-col gap-2">
         {categories.map((category) => (
-          <Link href={category} className="text-blue-600 italic">
-            {category}
-          </Link>
+          <li>
+            <Link href={category} className="text-blue-600 italic">
+              {category}
+            </Link>
+          </li>
         ))}
       </ul>
     </div>
