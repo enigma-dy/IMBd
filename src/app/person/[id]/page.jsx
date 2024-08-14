@@ -1,21 +1,40 @@
-export async function getData(id) {
+// src/app/person/[id]/page.jsx
+
+import React from 'react';
+
+export async function getServerSideProps(context) {
+  const { id } = context.params;
   const url = `https://api.themoviedb.org/3/person/${id}?language=en-US`;
   const options = {
     method: "GET",
     headers: {
       accept: "application/json",
-      Authorization: process.env.NEXT_PUBLIC_API_KEY,
+      Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
     },
   };
 
-  const res = await fetch(url, options);
-  if (!res.ok) {
-    throw new Error("Failed to fetch Data");
+  try {
+    const res = await fetch(url, options);
+    if (!res.ok) {
+      return { notFound: true }; // Return a 404 page if fetch fails
+    }
+    const profile = await res.json();
+
+    return {
+      props: {
+        profile,
+      },
+    };
+  } catch (error) {
+    return { notFound: true }; // Return a 404 page in case of any errors
   }
-  return res.json();
 }
-export default async function page({ params: { id } }) {
-  const profile = await getData(id);
+
+const PersonPage = ({ profile }) => {
+  if (!profile) {
+    return <div>Profile not found</div>;
+  }
+
   return (
     <div className="min-h-screen bg-gray-100 text-black flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
@@ -50,4 +69,6 @@ export default async function page({ params: { id } }) {
       </div>
     </div>
   );
-}
+};
+
+export default PersonPage;

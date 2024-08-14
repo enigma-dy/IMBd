@@ -39,8 +39,7 @@ const UpNext = () => {
 
   useEffect(() => {
     fetchData();
-  }, []); // Since fetchData is defined inside the component, it's safe to leave it out of the dependency array.
-
+  }, []);
   if (loading) return null;
   if (error)
     return <div className="text-center text-red-500">Error: {error}</div>;
