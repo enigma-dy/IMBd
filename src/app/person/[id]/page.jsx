@@ -1,10 +1,13 @@
-export async function getData(id) {
+// src/app/person/[id]/page.jsx
+
+// This is just a helper function, so it should not be exported.
+async function getData(id) {
   const url = `https://api.themoviedb.org/3/person/${id}?language=en-US`;
   const options = {
     method: "GET",
     headers: {
       accept: "application/json",
-      Authorization: process.env.NEXT_PUBLIC_API_KEY,
+      Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
     },
   };
 
@@ -14,7 +17,9 @@ export async function getData(id) {
   }
   return res.json();
 }
-export default async function page({ params: { id } }) {
+
+// This is the default page export that Next.js expects.
+export default async function Page({ params: { id } }) {
   const profile = await getData(id);
   return (
     <div className="min-h-screen bg-gray-100 text-black flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
